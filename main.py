@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
-def main():
+def classify(X,y):
     names = [
         "Nearest Neighbors",
         "Linear SVM",
@@ -39,12 +39,7 @@ def main():
         QuadraticDiscriminantAnalysis(),
     ]
 
-    with open('merged.txt') as f:
-        df = pd.read_csv(f,sep='\t',skiprows=1)
 
-    df = df.drop(['NCBI_tax_id', 'clade_name'], axis=1)
-    X = df.transpose().to_numpy().tolist()
-    y = [0]*28 + [1]*31
 
 
     X = StandardScaler().fit_transform(X)
@@ -61,4 +56,11 @@ def main():
         print(name, score, flush=True)
 
 if __name__ == "__main__":
-    main()
+    with open('merged.txt') as f:
+        df = pd.read_csv(f,sep='\t',skiprows=1)
+
+    df = df.drop(['NCBI_tax_id', 'clade_name'], axis=1)
+    X = df.transpose().to_numpy().tolist()
+    y = [0]*28 + [1]*31
+    
+    classify(X,y)
