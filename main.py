@@ -19,5 +19,3 @@ class Model(nn.Module):
         x = F.leaky_relu(self.linear3(x))
         x = F.relu(self.linear4(x))
         return x
-
-
