@@ -3,7 +3,10 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-def load_data(dir = 'PRJEB17784/', out_dir = 'profile_3/'):
+def load_data(dir = 'PRJEB17784/', out_dir = 'profile/'):
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
     # load labels
     line_count = 0
     id_list = []
