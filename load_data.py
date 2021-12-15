@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-def load_data(dir = 'PRJEB17784/', out_dir = 'profile/', sample_list = 'sample_list.txt'):
+def load_data(dir = 'tutorial/', out_dir = 'profile/', sample_list = 'sample_list.txt'):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
