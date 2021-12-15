@@ -1,11 +1,16 @@
 import os
-import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-def load_data(dir = 'tutorial/', out_dir = 'profile/', sample_list = 'sample_list.txt'):
+def load_data(filereport = 'filereport_read_run_PRJEB17784_tsv.txt', sample_list = 'sample_list.txt', dir = 'data/tutorial/', out_dir = 'profile/'):
+    out_dir = os.path.join(dir, out_dir)
+    sample_list = os.path.join(dir, sample_list)
+
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
+
+    if not os.path.exists(sample_list):
+        raise ValueError('sample list missing!')
 
     # load labels
     line_count = 0
@@ -24,7 +29,7 @@ def load_data(dir = 'tutorial/', out_dir = 'profile/', sample_list = 'sample_lis
             elif line_count == 30:
                 line_count = 0
     
-    df = pd.read_csv('filereport_read_run_PRJEB17784_tsv.txt', sep='\t')
+    df = pd.read_csv(filereport, sep='\t')
     for id in tqdm(id_list):
         # load fastq file list
         run_list = list(df[df['sample_accession']==id]['run_accession'])
@@ -43,7 +48,6 @@ def load_data(dir = 'tutorial/', out_dir = 'profile/', sample_list = 'sample_lis
         bowtie = 'bowtie2out/'+id+'.bowtie2.bz2'
         #os.system('metaphlan '+string[:-1]+ ' --bowtie2out bowtie2out/ '+ id+'.bowtie2.bz --input_type fastq > '+out_dir+id+'_'+sample_label+'_profile.txt')
         os.system('metaphlan '+string[:-1]+ ' --bowtie2out '+bowtie+' --input_type fastq > '+out_dir+id+'_'+sample_label+'_profile.txt')
-
 
 if __name__ =="__main__":
     load_data()
