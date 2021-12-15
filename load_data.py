@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-def load_data(dir = 'PRJEB17784/', out_dir = 'profile/'):
+def load_data(dir = 'PRJEB17784/', out_dir = 'profile/', sample_list = 'sample_list.txt'):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
@@ -11,7 +11,7 @@ def load_data(dir = 'PRJEB17784/', out_dir = 'profile/'):
     line_count = 0
     id_list = []
     label = {}
-    with open('sample_list.txt', 'r') as f:
+    with open(sample_list, 'r') as f:
         for line in f:
             line_data = line.rstrip()
             line_count += 1
